@@ -11,6 +11,7 @@ public class Pile2 implements PileI {
 
     /** la capacite de la pile */
     private int capacite;
+    private int CAPACITE_PAR_DEFAUT = PileI.CAPACITE_PAR_DEFAUT;
 
     /**
      * Creation d'une pile.
