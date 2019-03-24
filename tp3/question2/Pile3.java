@@ -20,66 +20,58 @@ public class Pile3 implements PileI {
     }
 
     public Pile3(int taille) {
-        // traiter le cas <=0
-        // à compléter
         if (taille <= 0)
             taille = CAPACITE_PAR_DEFAUT;
-        this.v= new Vector<Object>(taille);
+        this.v= new Vector(taille);
     }
 
     public void empiler(Object o) throws PilePleineException {
-        // à compléter
         boolean added = this.v.add(o);
         if(!added)
             throw new PilePleineException();
     }
 
     public Object depiler() throws PileVideException {
-        // à compléter
-        return null;
+        if(!estVide()){
+             Object obj = this.v.lastElement();
+             return this.v.remove(obj);
+            }
+        else throw new PileVideException();
     }
 
     public Object sommet() throws PileVideException {
-        // à compléter
         if(!estVide())
             return this.v.get(taille());
         else throw new PileVideException();
     }
 
     public int taille() {
-        // à compléter
         return v.size();
     }
 
     public int capacite() {
-        // à compléter
         return v.capacity();
     }
 
     public boolean estVide() {
-        // à compléter
         return v.isEmpty();
     }
 
     public boolean estPleine() {
-        // à compléter
-        return v.lastElement().toString().equals(v.get(v.size()));
+        return v.lastElement().toString().equals(v.get(taille()));
     }
 
     public String toString() {
-        // à compléter
         StringBuffer sb = new StringBuffer("[");
         for (int i = taille(); i > 0; i--) {
             sb.append(this.v.get(i).toString());
-            if (i > 0)
-                sb.append(", ");
+            sb.append(", ");
         }
         sb.append("]");
         return sb.toString();
     }
 
     public boolean equals(Object o) {
-        // à compléter
         Pile3 pileAComparer = (Pile3) o;
         if(pileAComparer.capacite() != capacite())
             return false;
@@ -92,7 +84,6 @@ public class Pile3 implements PileI {
         return true;
     }
 
-    // fonction fournie
     public int hashCode() {
         return toString().hashCode();
     }
