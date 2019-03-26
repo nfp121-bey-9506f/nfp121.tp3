@@ -29,7 +29,7 @@ public class Pile<T> implements PileI<T>
         this(0);
     }
 
-    public void empiler(Object o) throws PilePleineException {
+    public void empiler(T o) throws PilePleineException {
         if (estPleine())
             throw new PilePleineException();
         this.zone[this.ptr] = o;
