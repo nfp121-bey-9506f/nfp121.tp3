@@ -89,7 +89,8 @@ public class Pile implements PileI {
     public String toString() {
         StringBuffer sb = new StringBuffer("[");
         for (int i = ptr - 1; i >= 0; i--) {
-            sb.append(zone[i].toString());
+            if(zone[i]==null)sb.append("null");
+            else sb.append(zone[i].toString());
             if (i > 0)
                 sb.append(",");
         }

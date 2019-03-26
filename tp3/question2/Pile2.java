@@ -76,7 +76,8 @@ public class Pile2 implements PileI {
     public String toString() {
         String s = "[";
         for (int i = taille()-1; i >= 0; i--) {
-            s += this.stk.get(i).toString();
+            if(this.stk.get(i)==null) s+="null";
+            else s += this.stk.get(i).toString();
             if(i!=0)s += ",";
         }
         return s + "]";

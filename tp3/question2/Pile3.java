@@ -65,7 +65,8 @@ public class Pile3 implements PileI {
     public String toString() {
         StringBuffer sb = new StringBuffer("[");
         for (int i = taille()-1; i >= 0; i--) {
-            sb.append(this.v.get(i).toString());
+            if(this.v.get(i)==null) sb.append("null");
+            else sb.append(this.v.get(i).toString());
             if(i!=0)sb.append(",");
         }
         sb.append("]");

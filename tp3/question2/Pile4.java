@@ -145,7 +145,10 @@ public class Pile4 implements PileI, Cloneable {
             if(isNull) return s + "]";
             else s += ",";
             while(aAfficher.suivant!=null){
-                s += aAfficher.suivant.element().toString();
+                if(aAfficher.suivant==null) s+="null";
+                else if(aAfficher.suivant.element()!=null)
+                    s += aAfficher.suivant.element().toString();
+                    else s+= "null";
                 aAfficher.suivant=aAfficher.suivant.suivant();
                 if(aAfficher.suivant!=null) s += ",";
                 //else s+= ","+this.stk.element().toString();
