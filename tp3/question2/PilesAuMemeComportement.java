@@ -41,7 +41,7 @@ public class PilesAuMemeComportement extends junit.framework.TestCase {
         assertEquals(p2.capacite(), p3.capacite());
         assertEquals(p3.capacite(), p4.capacite());
 
-        assertEquals("[a, b]", p1.toString());
+        assertEquals("[a,b]", p1.toString());
         assertEquals(p1.toString(), p2.toString());
         assertEquals(p2.toString(), p3.toString());
         assertEquals(p3.toString(), p4.toString());
@@ -171,6 +171,23 @@ public class PilesAuMemeComportement extends junit.framework.TestCase {
         assertEquals(" différence sur la taille() ?? ",p2.taille(), p3.taille());
         assertEquals(" différence  sur la taille() ?? ",p3.taille(), p4.taille());
 
+    }
+    public void test_meme_comportement_2()throws Exception{
+        p1.empiler("1");p1.empiler("2");p1.empiler("3");p1.empiler("4");p1.empiler("Ordre decroissant de 4 a 1");
+        p2.empiler("4");p2.empiler("3");p2.empiler("2");p2.empiler("1");p2.empiler("Ordre croissant de 1 a 4");
+        p3.empiler("a");p3.empiler("b");p3.empiler("c");p3.empiler("d");p3.empiler("dcba");
+        p4.empiler("d");p4.empiler("c");p4.empiler("b");p4.empiler("a");p4.empiler("abcd");
+        assertTrue(p1.toString().equals("[Ordre decroissant de 4 a 1,4,3,2,1]"));
+        assertTrue(p2.toString().equals("[Ordre croissant de 1 a 4,1,2,3,4]"));
+        assertTrue(p3.toString().equals("[dcba,d,c,b,a]"));
+        assertTrue(p4.toString().equals("[abcd,a,b,c,d]"));
+        p1.empiler("la pile est pleine");
+        assertTrue("Pile pleine?",p1.estPleine());
+        assertTrue(p3.sommet().equals("dcba"));
+        assertTrue(p4.sommet().equals("abcd"));
+        for(int i =1;i<=5;i++)
+            p2.depiler();
+        assertTrue("La pile p2 est vide maintenant?",p2.estVide());
     }
 }
 

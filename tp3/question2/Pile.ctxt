@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Pile
-comment0.text=\r\n\ A\ remplacer\ en\ partie\ par\ votre\ classe\ Pile\ de\ la\ question\ 1.\r\n\ \r\n\ @author\ Jalal\ Hassane\ \ \ \ \r\n\ @version\ 23/3/2019\r\n
+comment0.text=\r\n\ A\ remplacer\ en\ partie\ par\ votre\ classe\ Pile\ de\ la\ question\ 1.\r\n\ \r\n\ @author\ Jalal\ Hassane\ \ \ \ \r\n\ @version\ 26/3/2019\r\n
 comment1.params=taille
 comment1.target=Pile(int)
 comment10.params=o

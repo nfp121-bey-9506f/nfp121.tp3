@@ -60,9 +60,9 @@ public class PileTest extends junit.framework.TestCase {
         pile1.empiler(4);
         assertEquals("toString incorrect ? ", "[4]", pile1.toString());
         pile1.empiler(5);
-        assertEquals("toString incorrect ? ", "[5, 4]", pile1.toString());
+        assertEquals("toString incorrect ? ", "[5,4]", pile1.toString());
         pile1.empiler(3);
-        assertEquals("toString incorrect ? ", "[3, 5, 4]", pile1.toString());
+        assertEquals("toString incorrect ? ", "[3,5,4]", pile1.toString());
 
     }
 

@@ -64,7 +64,7 @@ public class Pile2 implements PileI {
      * @return vrai si la pile est pleine, faux autrement
      */
     public boolean estPleine() {
-        return stk.lastElement().toString().equals(stk.get(taille()));
+        return taille()==capacite();
     }
 
     /**
@@ -75,22 +75,21 @@ public class Pile2 implements PileI {
      */
     public String toString() {
         String s = "[";
-        for (int i = taille(); i > 0; i--) {
+        for (int i = taille()-1; i >= 0; i--) {
             s += this.stk.get(i).toString();
-            s += ", ";
+            if(i!=0)s += ",";
         }
         return s + "]";
     }
 
     public boolean equals(Object o) {
-        Pile2 pileAComparer = (Pile2) o;
-        if(pileAComparer.capacite() != capacite())
-            return false;
-        if(pileAComparer.taille() != taille())
-            return false;
-        for(int i = 1; i<=taille();i++ ){
-            if(!pileAComparer.stk.get(i).equals(this.stk.get(i)))
-                return false;
+        if(o instanceof Pile2){
+            Pile2 pileAComparer = (Pile2) o;
+            if(pileAComparer.capacite() != capacite())return false;
+            if(pileAComparer.taille() != taille())return false;
+            for(int i = 1; i<=taille();i++ ){
+                if(!pileAComparer.stk.get(i).equals(this.stk.get(i)))return false;
+            }
         }
         return true;
     }

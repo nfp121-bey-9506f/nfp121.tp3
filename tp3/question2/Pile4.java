@@ -50,7 +50,6 @@ public class Pile4 implements PileI, Cloneable {
     public Pile4(int taille) {
         if (taille <= 0)
             taille = CAPACITE_PAR_DEFAUT;
-        this.stk = null;
         this.capacite = taille;
         this.nombre = 0;
     }
@@ -63,14 +62,20 @@ public class Pile4 implements PileI, Cloneable {
         if (estPleine())
             throw new PilePleineException();
             if(nombre==0){
-                this.stk.element = o;
-                this.stk.suivant = null;
-            }else{
-                //this.stk.suivant = o;
+                this.stk= new Maillon(o,null);
                 
+            }else{
+            Maillon aAjouter = new Maillon(o,null);
+            try{
+                Maillon m =(Maillon) this.stk.clone(); 
+                aAjouter.suivant = m;
+                this.stk=aAjouter;
+            }catch(CloneNotSupportedException e){
+                System.out.println("Exception");
+            }                
+            
             }
-        
-        this.nombre++;
+            this.nombre++;
     }
 
     public Object depiler() throws PileVideException {
@@ -78,7 +83,17 @@ public class Pile4 implements PileI, Cloneable {
             throw new PileVideException();
         try{
             this.nombre--;
-            return this.stk.clone();
+            Maillon sommet = (Maillon)this.stk.clone();
+            
+            if(nombre>1){
+                this.stk.element= sommet.suivant().element();
+                this.stk.suivant = sommet.suivant().suivant();
+            }else{
+                this.stk.element= sommet.element();
+                this.stk.suivant = null;
+            }
+            
+            return sommet.element;
         }catch(CloneNotSupportedException e){
             e.printStackTrace();
             return null;
@@ -87,9 +102,14 @@ public class Pile4 implements PileI, Cloneable {
     }
 
     public Object sommet() throws PileVideException {
-        if (estVide())
-            throw new PileVideException();
-        return this.stk.element(); // à compléter
+        if (estVide()) throw new PileVideException();
+        try{
+             Maillon m =(Maillon) this.stk.clone(); 
+             return m.element();
+        }catch(CloneNotSupportedException e){
+             System.out.println("Exception");
+        }
+        return null;
     }
 
     /**
@@ -117,12 +137,21 @@ public class Pile4 implements PileI, Cloneable {
      * @return une représentation en String d'une pile
      */
     public String toString() {
-
         String s = "[";
-        while(this.stk.suivant()!=null){
-          s += this.stk.element().toString();
-          if(this.stk.suivant()==null)
-             s+= ", ";
+        try{
+            Maillon aAfficher= (Maillon)this.stk.clone();
+            boolean isNull = aAfficher.suivant == null;
+            if(!estVide())s += aAfficher.element();
+            if(isNull) return s + "]";
+            else s += ",";
+            while(aAfficher.suivant!=null){
+                s += aAfficher.suivant.element().toString();
+                aAfficher.suivant=aAfficher.suivant.suivant();
+                if(aAfficher.suivant!=null) s += ",";
+                //else s+= ","+this.stk.element().toString();
+            }
+        }catch(CloneNotSupportedException e){
+            e.printStackTrace();
         }
         return s + "]";
     }
@@ -134,24 +163,29 @@ public class Pile4 implements PileI, Cloneable {
                 return false;
             if(pileAComparer.taille() != taille())
                 return false;
-            while(this.stk.suivant()!=null){
-                if(!pileAComparer.stk.element().equals(this.stk.element()))
-                return false;
+            try{
+                Maillon check= (Maillon)this.stk.clone();
+                while(check.suivant()!=null){
+                    if(!pileAComparer.stk.element().equals(check.element()))
+                        return false;
+                    pileAComparer.stk.suivant=pileAComparer.stk.suivant.suivant();
+                    check.suivant=check.suivant.suivant();
+                }
+            }catch(CloneNotSupportedException e){
             }
-            return false;
         }
         return true;
     }
 
-	public int capacite() {
-		return this.capacite;
-	}
+    public int capacite() {
+        return this.capacite;
+    }
 
-	public int hashCode() {
-		return toString().hashCode();
-	}
+    public int hashCode() {
+        return toString().hashCode();
+    }
 
-	public int taille() {
-		return nombre;
-	}
+    public int taille() {
+        return nombre;
+    }
 }

@@ -9,7 +9,7 @@ import java.util.Vector;
  * Décrivez votre classe PileVector ici.
  * 
  * @author Jalal Hassane
- * @version 23/3/2019
+ * @version 26/3/2019
  */
 public class Pile3 implements PileI {
     private int CAPACITE_PAR_DEFAUT = PileI.CAPACITE_PAR_DEFAUT;
@@ -33,15 +33,16 @@ public class Pile3 implements PileI {
 
     public Object depiler() throws PileVideException {
         if(!estVide()){
-             Object obj = this.v.lastElement();
-             return this.v.remove(obj);
+             Object obj = sommet();
+             this.v.remove(obj);
+             return obj;
             }
         else throw new PileVideException();
     }
 
     public Object sommet() throws PileVideException {
         if(!estVide())
-            return this.v.get(taille());
+            return this.v.get(taille()-1);
         else throw new PileVideException();
     }
 
@@ -58,28 +59,27 @@ public class Pile3 implements PileI {
     }
 
     public boolean estPleine() {
-        return v.lastElement().toString().equals(v.get(taille()));
+        return taille()==capacite();
     }
 
     public String toString() {
         StringBuffer sb = new StringBuffer("[");
-        for (int i = taille(); i > 0; i--) {
+        for (int i = taille()-1; i >= 0; i--) {
             sb.append(this.v.get(i).toString());
-            sb.append(", ");
+            if(i!=0)sb.append(",");
         }
         sb.append("]");
         return sb.toString();
     }
 
     public boolean equals(Object o) {
-        Pile3 pileAComparer = (Pile3) o;
-        if(pileAComparer.capacite() != capacite())
-            return false;
-        if(pileAComparer.taille() != taille())
-            return false;
-        for(int i = 1; i<=taille();i++ ){
-            if(!pileAComparer.v.get(i).equals(this.v.get(i)))
-                return false;
+        if(o instanceof Pile3){
+            Pile3 pileAComparer = (Pile3) o;
+            if(pileAComparer.capacite() != capacite())return false;
+            if(pileAComparer.taille() != taille())return false;
+            for(int i = 1; i<=taille();i++ ){
+                if(!pileAComparer.v.get(i).equals(this.v.get(i)))return false;
+            }
         }
         return true;
     }
